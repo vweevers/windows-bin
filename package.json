@@ -1,6 +1,6 @@
 {
   "name": "windows-bin",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Find native Windows executables",
   "license": "MIT",
   "author": {
