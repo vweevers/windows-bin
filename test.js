@@ -6,6 +6,7 @@ var test = require('tape')
   , existent = require('existent')
 
 var calls = []
+var native = process.arch === 'x64' ? 'system32' : 'Sysnative'
 
 var bin = proxyquire('./', {
   existent: function spy() {
@@ -23,7 +24,7 @@ test('find native cscript', function (t) {
     t.ifError(err, 'no error')
 
     if (env.X64) {
-      t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
+      t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
     } else {
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
     }
@@ -33,7 +34,7 @@ test('find native cscript', function (t) {
     t.ifError(err, 'no error')
 
     if (env.X64) {
-      t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
+      t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
     } else {
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
     }
@@ -48,7 +49,7 @@ test('find native wscript', function (t) {
     t.ifError(err, 'no error')
 
     if (env.X64) {
-      t.is(result, path.join(root, 'Sysnative', 'wscript.exe'), 'found native bin')
+      t.is(result, path.join(root, native, 'wscript.exe'), 'found native bin')
     } else {
       t.is(result, path.join(root, 'system32', 'wscript.exe'), 'found x86 bin')
     }
@@ -58,7 +59,7 @@ test('find native wscript', function (t) {
     t.ifError(err, 'no error')
 
     if (env.X64) {
-      t.is(result, path.join(root, 'Sysnative', 'wscript.exe'), 'found native bin')
+      t.is(result, path.join(root, native, 'wscript.exe'), 'found native bin')
     } else {
       t.is(result, path.join(root, 'system32', 'wscript.exe'), 'found x86 bin')
     }
@@ -84,53 +85,54 @@ test('searches once', function (t) {
   t.plan(8 * 3)
   bin.reset()
   calls.splice(0, calls.length)
+  var expected = process.arch === 'x64' ? 1 : 2
 
   bin('cscript', { native: false }, function(err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-    t.is(calls.length, 2, 'called twice')
+    t.is(calls.length, expected, 'called '+expected+' time(s)')
   })
 
   bin('cscript', { native: false }, function(err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-    t.is(calls.length, 2, 'called twice')
+    t.is(calls.length, expected, 'called '+expected+' time(s)')
 
     bin('cscript', { native: false }, function(err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-      t.is(calls.length, 2, 'called twice')
+      t.is(calls.length, expected, 'called '+expected+' time(s)')
     })
 
     bin('cscript.exe', { native: false }, function(err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-      t.is(calls.length, 2, 'called twice')
+      t.is(calls.length, expected, 'called '+expected+' time(s)')
     })
   })
 
   // native
   bin('cscript', { native: true }, function(err, result) {
     t.ifError(err, 'no error')
-    t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
-    t.is(calls.length, 2, 'called twice')
+    t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
+    t.is(calls.length, expected, 'called '+expected+' time(s)')
   })
 
   bin('cscript', { native: true }, function(err, result) {
     t.ifError(err, 'no error')
-    t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
-    t.is(calls.length, 2, 'called twice')
+    t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
+    t.is(calls.length, expected, 'called '+expected+' time(s)')
 
     bin('cscript', { native: true }, function(err, result) {
       t.ifError(err, 'no error')
-      t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
-      t.is(calls.length, 2, 'called twice')
+      t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
+      t.is(calls.length, expected, 'called '+expected+' time(s)')
     })
 
     bin('cscript.exe', { native: true }, function(err, result) {
       t.ifError(err, 'no error')
-      t.is(result, path.join(root, 'Sysnative', 'cscript.exe'), 'found native bin')
-      t.is(calls.length, 2, 'called twice')
+      t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
+      t.is(calls.length, expected, 'called '+expected+' time(s)')
     })
   })
 })
