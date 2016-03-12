@@ -1,0 +1,38 @@
+{
+  "name": "windows-bin",
+  "version": "0.0.1",
+  "description": "Find native Windows executables",
+  "license": "MIT",
+  "author": {
+    "name": "Vincent Weevers",
+    "email": "mail@vincentweevers.nl"
+  },
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "dependencies": {
+    "debug": "~2.2.0",
+    "existent": "~1.0.1",
+    "which": "~1.2.4",
+    "windows-env": "~1.0.0"
+  },
+  "devDependencies": {
+    "proxyquire": "~1.7.4",
+    "tape": "~4.5.1"
+  },
+  "keywords": [
+    "bin",
+    "exe",
+    "sysnative",
+    "system32",
+    "syswow64",
+    "windows"
+  ],
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=2.0.0"
+  },
+  "repository": "vweevers/windows-bin",
+  "bugs": "https://github.com/vweevers/windows-bin/issues",
+  "homepage": "https://github.com/vweevers/windows-bin"
+}
