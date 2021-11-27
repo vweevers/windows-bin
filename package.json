@@ -11,7 +11,6 @@
     "test": "tape test.js"
   },
   "dependencies": {
-    "debug": "~2.2.0",
     "existent": "~1.0.1",
     "which": "~1.2.4",
     "windows-env": "~1.0.0"

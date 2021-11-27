@@ -4,7 +4,6 @@ var env = require('windows-env')
   , path = require('path')
   , which = require('which')
   , existent = require('existent')
-  , debug = require('debug')('windows-bin')
   , cache_ = Object.create(null)
 
 // Find an executable. If we're on 64-bit Windows
@@ -49,7 +48,6 @@ module.exports = function winbin (name, opts, cb) {
   }
 
   function done (err, bin) {
-    debug(err || ('Found: ' + bin))
     search.result = [err, bin]
     search.waiting.forEach(emit)
     search.waiting = null
