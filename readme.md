@@ -2,9 +2,11 @@
 
 **Find Windows core executables like `cscript`, preferring the native 64-bit version regardless of Node.js bitness. Because by default, when running 32-bit Node.js, Windows would redirect to 32-bit [WoW64](https://en.wikipedia.org/wiki/WoW64) executables.**
 
-[![npm status](http://img.shields.io/npm/v/windows-bin.svg?style=flat-square)](https://www.npmjs.org/package/windows-bin) [![AppVeyor build status](https://img.shields.io/appveyor/ci/vweevers/windows-bin.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/vweevers/windows-bin) [![Dependency status](https://img.shields.io/david/vweevers/windows-bin.svg?style=flat-square)](https://david-dm.org/vweevers/windows-bin)
+[![npm status](http://img.shields.io/npm/v/windows-bin.svg)](https://www.npmjs.org/package/windows-bin)
+[![AppVeyor build status](https://img.shields.io/appveyor/ci/vweevers/windows-bin.svg)](https://ci.appveyor.com/project/vweevers/windows-bin)
+[![Standard](https://img.shields.io/badge/standard-informational?logo=javascript&logoColor=fff)](https://standardjs.com)
 
-## usage
+## Usage
 
 ```js
 const bin = require('windows-bin')
@@ -20,7 +22,7 @@ bin('cscript', { native: false }, function(err, path) {
 })
 ```
 
-## install
+## Install
 
 With [npm](https://npmjs.org) do:
 
@@ -28,6 +30,6 @@ With [npm](https://npmjs.org) do:
 npm install windows-bin
 ```
 
-## license
+## License
 
-[MIT](http://opensource.org/licenses/MIT) © Vincent Weevers
+[MIT](LICENSE)

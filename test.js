@@ -1,15 +1,15 @@
 var test = require('tape')
-  , env  = require('windows-env')
-  , path = require('path')
-  , root = env.SYSTEMROOT
-  , proxyquire = require('proxyquire')
-  , existent = require('existent')
+var env = require('windows-env')
+var path = require('path')
+var root = env.SYSTEMROOT
+var proxyquire = require('proxyquire')
+var existent = require('existent')
 
 var calls = []
 var native = process.arch === 'x64' ? 'system32' : 'Sysnative'
 
 var bin = proxyquire('./', {
-  existent: function spy() {
+  existent: function spy () {
     var args = [].slice.call(arguments)
     calls.push(args[0])
     return existent.apply(null, args)
@@ -87,52 +87,52 @@ test('searches once', function (t) {
   calls.splice(0, calls.length)
   var expected = process.arch === 'x64' ? 1 : 2
 
-  bin('cscript', { native: false }, function(err, result) {
+  bin('cscript', { native: false }, function (err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-    t.is(calls.length, expected, 'called '+expected+' time(s)')
+    t.is(calls.length, expected, 'called ' + expected + ' time(s)')
   })
 
-  bin('cscript', { native: false }, function(err, result) {
+  bin('cscript', { native: false }, function (err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-    t.is(calls.length, expected, 'called '+expected+' time(s)')
+    t.is(calls.length, expected, 'called ' + expected + ' time(s)')
 
-    bin('cscript', { native: false }, function(err, result) {
+    bin('cscript', { native: false }, function (err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-      t.is(calls.length, expected, 'called '+expected+' time(s)')
+      t.is(calls.length, expected, 'called ' + expected + ' time(s)')
     })
 
-    bin('cscript.exe', { native: false }, function(err, result) {
+    bin('cscript.exe', { native: false }, function (err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, 'system32', 'cscript.exe'), 'found x86 bin')
-      t.is(calls.length, expected, 'called '+expected+' time(s)')
+      t.is(calls.length, expected, 'called ' + expected + ' time(s)')
     })
   })
 
   // native
-  bin('cscript', { native: true }, function(err, result) {
+  bin('cscript', { native: true }, function (err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
-    t.is(calls.length, expected, 'called '+expected+' time(s)')
+    t.is(calls.length, expected, 'called ' + expected + ' time(s)')
   })
 
-  bin('cscript', { native: true }, function(err, result) {
+  bin('cscript', { native: true }, function (err, result) {
     t.ifError(err, 'no error')
     t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
-    t.is(calls.length, expected, 'called '+expected+' time(s)')
+    t.is(calls.length, expected, 'called ' + expected + ' time(s)')
 
-    bin('cscript', { native: true }, function(err, result) {
+    bin('cscript', { native: true }, function (err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
-      t.is(calls.length, expected, 'called '+expected+' time(s)')
+      t.is(calls.length, expected, 'called ' + expected + ' time(s)')
     })
 
-    bin('cscript.exe', { native: true }, function(err, result) {
+    bin('cscript.exe', { native: true }, function (err, result) {
       t.ifError(err, 'no error')
       t.is(result, path.join(root, native, 'cscript.exe'), 'found native bin')
-      t.is(calls.length, expected, 'called '+expected+' time(s)')
+      t.is(calls.length, expected, 'called ' + expected + ' time(s)')
     })
   })
 })
